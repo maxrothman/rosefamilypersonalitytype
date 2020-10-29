@@ -1,0 +1,48 @@
+{
+	"question": "A woman on the street asks for you a dime.",
+	"Sneer.":{
+		"lovability": 1,
+		"selfishness": 10,
+		"lovable selfishness": 1,
+		"entrepeneurship": 7,
+		"modesty": 1,
+		"entitlement": 10,
+		"wit": 1
+	},
+	"Blow a kiss.":{
+		"lovability": 4,
+		"selfishness": 10,
+		"lovable selfishness": 3,
+		"entrepeneurship": 6,
+		"modesty": 1,
+		"entitlement": 10,
+		"wit": 2
+	},
+	"Give her a twenty.":{
+		"lovability": 10,
+		"selfishness": 1,
+		"lovable selfishness": 1,
+		"entrepeneurship": 2,
+		"modesty": 6,
+		"entitlement": 1,
+		"wit": 3
+	},
+	"Ask her for a nickel.":{
+		"lovability": 2,
+		"selfishness": 10,
+		"lovable selfishness": 4,
+		"entrepeneurship": 10,
+		"modesty": 1,
+		"entitlement": 10,
+		"wit": 2
+	},
+	"Apologize that you don't have any cash, but offer to buy her lunch.":{
+		"lovability": 10,
+		"selfishness": 1,
+		"lovable selfishness": 1,
+		"entrepeneurship": 1,
+		"modesty": 10,
+		"entitlement": 3,
+		"wit": 3
+	}
+}
