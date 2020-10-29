@@ -49,5 +49,6 @@ JSON!
 {
 	"question": "wwwww?",
 	"answer a":{ "lovability":4 ,"selfishness":7 }
+	"answer b":{ "lovable selfishness":10, "modesty":2 }
 	# etc
 }
