@@ -28,8 +28,20 @@ for path in sorted(questionPath.iterdir()):
         if 0 < choice < len(questionData["answers"]) + 1:
             break
     answerStr = answers[choice-1]
-    # print("you chose " + answerStr)
     scores.append(questionData["answers"][answerStr])
-print(scores)
-
-
+scoreTotal = {
+        "lovability": 0,
+        "selfishness": 0,
+        "lovable selfishness": 0,
+        "entrepeneurship": 0,
+        "modesty": 0,
+        "entitlement": 0,
+        "wit": 0,
+        }
+for index in range(len(scores)):
+    for key, value in scores[index].items():
+        scoreTotal[key] = scoreTotal[key] + value
+for stat, value in scoreTotal.items():
+    # what the fuck is going on here; why does scoreTotal[stat] output it's value
+    scoreTotal[stat] = value / questionCount
+print(scoreTotal)
