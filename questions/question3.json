@@ -1,0 +1,50 @@
+{
+	"question":"You make friends easily.",
+	"answers":{
+		"Inaccurate":{
+			"lovability": 3,
+			"selfishness": 4,
+			"lovable selfishness": 8,
+			"entrepeneurship": 9,
+			"modesty": 3,
+			"entitlement": 9,
+			"wit": 9
+		}, 
+		"Somewhat Inaccurate":{
+			"lovability": 7,
+			"selfishness": 7,
+			"lovable selfishness": 2,
+			"entrepeneurship": 5,
+			"modesty": 9,
+			"entitlement": 6,
+			"wit": 6
+		},
+		"Neutral":{
+			"lovability": 9,
+			"selfishness": 3,
+			"lovable selfishness": 10,
+			"entrepeneurship": 3,
+			"modesty": 9,
+			"entitlement": 2,
+			"wit": 5
+		},
+		"Somewhat Accurate":{
+			"lovability": 7,
+			"selfishness": 7,
+			"lovable selfishness": 4,
+			"entrepeneurship": 8,
+			"modesty": 4,
+			"entitlement": 7,
+			"wit": 1
+		},
+		"Accurate":{
+			"lovability": 3,
+			"selfishness": 8,
+			"lovable selfishness": 1,
+			"entrepeneurship": 10,
+			"modesty": 1,
+			"entitlement": 8,
+			"wit": 1
+		}
+	}
+}

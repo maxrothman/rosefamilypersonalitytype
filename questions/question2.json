@@ -2,49 +2,49 @@
 	"question":"What's your favorite color?",
 	"answers":{
 		"Red":{
-			"lovability": 1,
-			"selfishness": 10,
-			"lovable selfishness": 1,
-			"entrepeneurship": 7,
-			"modesty": 1,
-			"entitlement": 10,
-			"wit": 1
-		},
-		"Orange":{
-			"lovability": 4,
-			"selfishness": 10,
-			"lovable selfishness": 3,
+			"lovability": 2,
+			"selfishness": 8,
+			"lovable selfishness": 10,
 			"entrepeneurship": 6,
 			"modesty": 1,
-			"entitlement": 10,
-			"wit": 2
+			"entitlement": 6,
+			"wit": 3
+		},
+		"Orange":{
+			"lovability": 6,
+			"selfishness": 5,
+			"lovable selfishness": 4,
+			"entrepeneurship": 2,
+			"modesty": 8,
+			"entitlement": 1,
+			"wit": 1
 		},
 		"Yellow":{
-			"lovability": 10,
-			"selfishness": 1,
-			"lovable selfishness": 1,
-			"entrepeneurship": 2,
-			"modesty": 6,
-			"entitlement": 1,
-			"wit": 3
+			"lovability": 3,
+			"selfishness": 8,
+			"lovable selfishness": 3,
+			"entrepeneurship": 8,
+			"modesty": 2,
+			"entitlement": 9,
+			"wit": 1
 		},
 		"Green":{
-			"lovability": 2,
-			"selfishness": 10,
-			"lovable selfishness": 4,
-			"entrepeneurship": 10,
-			"modesty": 1,
-			"entitlement": 10,
-			"wit": 2
+			"lovability": 9,
+			"selfishness": 2,
+			"lovable selfishness": 6,
+			"entrepeneurship": 3,
+			"modesty": 10,
+			"entitlement": 2,
+			"wit": 6
 		},
 		"Blue":{
-			"lovability": 10,
-			"selfishness": 1,
-			"lovable selfishness": 1,
-			"entrepeneurship": 1,
-			"modesty": 10,
-			"entitlement": 3,
-			"wit": 3
+			"lovability": 4,
+			"selfishness": 4,
+			"lovable selfishness": 6,
+			"entrepeneurship": 5,
+			"modesty": 9,
+			"entitlement": 6,
+			"wit": 5
 		}
 	}
 }
