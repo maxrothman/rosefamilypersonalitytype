@@ -25,9 +25,11 @@ for path in sorted(questionPath.iterdir()):
             choice = int(choice)
         except ValueError:
             continue
-        if 0 < choice < len(questionData["answers"]):
+        if 0 < choice < len(questionData["answers"]) + 1:
             break
     answerStr = answers[choice-1]
+    # print("you chose " + answerStr)
     scores.append(questionData["answers"][answerStr])
+print(scores)
 
 
