@@ -1,7 +1,7 @@
 {
-	"question":"A woman on the street asks for you a dime.",
+	"question":"What's your favorite color?",
 	"answers":{
-		"Sneer.":{
+		"Red":{
 			"lovability": 1,
 			"selfishness": 10,
 			"lovable selfishness": 1,
@@ -10,7 +10,7 @@
 			"entitlement": 10,
 			"wit": 1
 		},
-		"Blow a kiss.":{
+		"Orange":{
 			"lovability": 4,
 			"selfishness": 10,
 			"lovable selfishness": 3,
@@ -19,7 +19,7 @@
 			"entitlement": 10,
 			"wit": 2
 		},
-		"Give her a twenty.":{
+		"Yellow":{
 			"lovability": 10,
 			"selfishness": 1,
 			"lovable selfishness": 1,
@@ -28,7 +28,7 @@
 			"entitlement": 1,
 			"wit": 3
 		},
-		"Ask her for a nickel.":{
+		"Green":{
 			"lovability": 2,
 			"selfishness": 10,
 			"lovable selfishness": 4,
@@ -37,7 +37,7 @@
 			"entitlement": 10,
 			"wit": 2
 		},
-		"Apologize that you don't have any cash, but offer to buy her lunch.":{
+		"Blue":{
 			"lovability": 10,
 			"selfishness": 1,
 			"lovable selfishness": 1,
