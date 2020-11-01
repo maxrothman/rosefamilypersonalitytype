@@ -5,15 +5,15 @@ from pathlib import Path
 
 scores = []
 
-questionPath = Path('questions/')
-questionCount = len(list(questionPath.iterdir()))
-for path in sorted(questionPath.iterdir()):
+question_path = Path('questions/')
+question_count = len(list(question_path.iterdir()))
+for path in sorted(question_path.iterdir()):
     with open(path) as f:
-        questionData = json.loads(f.read())
-    print(questionData["question"])
+        question_data = json.loads(f.read())
+    print(question_data["question"])
     # could use an ARRAY of objects instead
     number = 1
-    answers = list(questionData["answers"].keys())
+    answers = list(question_data["answers"].keys())
     for answer in answers:
         print(str(number) + ". " + answer)
         number = number+1
@@ -25,11 +25,11 @@ for path in sorted(questionPath.iterdir()):
             choice = int(choice)
         except ValueError:
             continue
-        if 0 < choice < len(questionData["answers"]) + 1:
+        if 0 < choice < len(question_data["answers"]) + 1:
             break
-    answerStr = answers[choice-1]
-    scores.append(questionData["answers"][answerStr])
-scoreTotal = {
+    answer_str = answers[choice-1]
+    scores.append(question_data["answers"][answer_str])
+score_total = {
         "lovability": 0,
         "selfishness": 0,
         "lovable selfishness": 0,
@@ -40,42 +40,42 @@ scoreTotal = {
         }
 for index in range(len(scores)):
     for key, value in scores[index].items():
-        scoreTotal[key] = scoreTotal[key] + value
-for stat, value in scoreTotal.items():
-    # what the fuck is going on here; why does scoreTotal[stat] output it's value
-    scoreTotal[stat] = round(value / questionCount)
-characterPath = Path("characters/")
-characterScores = []
-characterNumber = 0
-for charFile in characterPath.iterdir():
-    with open(charFile) as f:
-        characterData = json.loads(f.read())
-    characterScores.append(dict(name = characterData["name"]))
-    characterScores[characterNumber].update(total = 0)
-    characterScores[characterNumber].update(user = True)
+        score_total[key] = score_total[key] + value
+for stat, value in score_total.items():
+    # what the fuck is going on here; why does score_total[stat] output it's value
+    score_cotal[stat] = round(value / questionCount)
+character_path = Path("characters/")
+character_scores = []
+character_number = 0
+for char_file in character_path.iterdir():
+    with open(char_file) as f:
+        character_data = json.loads(f.read())
+    character_scores.append(dict(name = character_data["name"]))
+    character_scores[character_number].update(total = 0)
+    character_scores[character_number].update(user = True)
     # for each character, you are compared, and given a closeness score
-    for key, value in characterData.items():
+    for key, value in character_data.items():
         if type(value) is str:
             continue
         else:
-            characterScores[characterNumber][key] = abs(value - scoreTotal[key])
-    characterScores[characterNumber]["total"] = characterScores[characterNumber]["total"] + characterScores[characterNumber][key]
-    characterNumber = characterNumber+1
-scoreTotal.update(dict(totalTotal = 0))
+            character_scores[character_number][key] = abs(value - score_total[key])
+    character_scores[character_number]["total"] = character_scores[character_number]["total"] + character_scores[character_number][key]
+    character_number = character_number+1
+score_total.update(dict(totalTotal = 0))
 # calculate total of totals to perform percentage calculation
-for each in characterScores:
-    scoreTotal["totalTotal"] = scoreTotal["totalTotal"] + abs(10 - each["total"])
+for each in character_scores:
+    score_total["totalTotal"] = score_total["totalTotal"] + abs(10 - each["total"])
 finalPercentages = {}
 # assign percentage from each 1-10 score
-for each in characterScores:
-    percentage = str(round((10 - each["total"]) / scoreTotal["totalTotal"] * 100))
+for each in character_scores:
+    percentage = str(round((10 - each["total"]) / score_total["totalTotal"] * 100))
     each["percentage"] = percentage
-personalityType = str("")
-for each in sorted(characterScores, key = lambda i: i["percentage"],reverse=True):
-    personalityType = personalityType + each["name"][0]
-print("Mazel tov, Max! Your Rose Family Personality Type is " + personalityType + "!")
+personality_type = str("")
+for each in sorted(character_scores, key = lambda i: i["percentage"],reverse=True):
+    personality_type = personality_type + each["name"][0]
+print("Mazel tov, Max! Your Rose Family Personality Type is " + personality_type + "!")
 print("You are:")
-for each in sorted(characterScores, key = lambda i: i["percentage"],reverse=True):
+for each in sorted(character_scores, key = lambda i: i["percentage"],reverse=True):
     print(each["percentage"] + '% ' + each["name"] + " Rose")
 
 # sometimes the percentages AND PERSONALITY TYPE are out of order! "DJAM" seems likely
