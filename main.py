@@ -76,7 +76,7 @@ for each in sorted(characterScores, key = lambda i: i["percentage"],reverse=True
 print("Mazel tov, Max! Your Rose Family Personality Type is " + personalityType + "!")
 print("You are:")
 for each in sorted(characterScores, key = lambda i: i["percentage"],reverse=True):
-    print("%" + each["percentage"] + " " + each["name"])
+    print(each["percentage"] + '% ' + each["name"] + " Rose")
 
 # sometimes the percentages AND PERSONALITY TYPE are out of order! "DJAM" seems likely
 
