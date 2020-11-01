@@ -1,6 +1,11 @@
 
 # A Rose Family Personality Quiz
 
-## Maybe someday this will work.
+## It mostly works!
 
-I'm learning how to program, and so this is a project I'm undertaking! Please enjoy my struggles and my foibles. **If you must.**
+I'm learning how to program, and so this is a project I'm undertaking to that end! Please enjoy my struggles and my foibles. **If you must.**
+
+It presently works (mostly, with some miscalculations)
+**but** it needs more questions!
+
+
