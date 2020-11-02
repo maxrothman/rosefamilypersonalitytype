@@ -1,23 +1,25 @@
 import json
 from pathlib import Path
 
-# inventory each file in question folder and create function which calls each question
-
 scores = []
 
-question_path = Path('questions/')
-question_count = len(list(question_path.iterdir()))
-for path in sorted(question_path.iterdir()):
+# Get the list of questions
+question_files = list(Path('questions/').iterdir())
+question_count = len(question_files)
+
+for path in sorted(question_files):
+    # Read in the question
     with open(path) as f:
-        question_data = json.loads(f.read())
+        question_data = json.load(f)
+
+    # Ask the user the question
     print(question_data["question"])
-    # could use an ARRAY of objects instead
-    number = 1
     answers = list(question_data["answers"].keys())
-    for answer in answers:
-        print(str(number) + ". " + answer)
-        number = number+1
+    for i, answer in enumerate(answers, start=1):
+        print(f"{i}. {answer}")
+
     prompt = "Input answer number: "
+    # If the answer was invalid, loop until they give a valid one
     while True:
         choice = input(prompt)
         prompt = "Quit fucking around, gosh. "
@@ -25,58 +27,68 @@ for path in sorted(question_path.iterdir()):
             choice = int(choice)
         except ValueError:
             continue
-        if 0 < choice < len(question_data["answers"]) + 1:
+        if 0 < choice <= len(question_data["answers"]):
             break
+    
+    # A valid answer has been selected, log the scores
     answer_str = answers[choice-1]
     scores.append(question_data["answers"][answer_str])
-score_total = {
-        "lovability": 0,
-        "selfishness": 0,
-        "lovable selfishness": 0,
-        "entrepeneurship": 0,
-        "modesty": 0,
-        "entitlement": 0,
-        "wit": 0,
-        }
-for index in range(len(scores)):
-    for key, value in scores[index].items():
-        score_total[key] = score_total[key] + value
-for stat, value in score_total.items():
-    # what the fuck is going on here; why does score_total[stat] output it's value
-    score_cotal[stat] = round(value / questionCount)
+
+# Total the scores
+score_avg = {
+    "lovability": 0,
+    "selfishness": 0,
+    "lovable selfishness": 0,
+    "entrepeneurship": 0,
+    "modesty": 0,
+    "entitlement": 0,
+    "wit": 0,
+}
+for score in scores:
+    for key, value in score.items():
+        score_avg[key] += value
+
+# Average the scores
+for stat, value in score_avg.items():
+    score_avg[stat] = round(value / question_count)
+
+# Accumulate differences between each character and the user
 character_path = Path("characters/")
-character_scores = []
-character_number = 0
+character_diffs = []
 for char_file in character_path.iterdir():
     with open(char_file) as f:
-        character_data = json.loads(f.read())
-    character_scores.append(dict(name = character_data["name"]))
-    character_scores[character_number].update(total = 0)
-    character_scores[character_number].update(user = True)
+        character_data = json.load(f)
+
+    character_diff = {
+        'name': character_data['name'],
+        'total': 0,
+    }
+
     # for each character, you are compared, and given a closeness score
-    for key, value in character_data.items():
-        if type(value) is str:
-            continue
-        else:
-            character_scores[character_number][key] = abs(value - score_total[key])
-    character_scores[character_number]["total"] = character_scores[character_number]["total"] + character_scores[character_number][key]
-    character_number = character_number+1
-score_total.update(dict(totalTotal = 0))
-# calculate total of totals to perform percentage calculation
-for each in character_scores:
-    score_total["totalTotal"] = score_total["totalTotal"] + abs(10 - each["total"])
-finalPercentages = {}
-# assign percentage from each 1-10 score
-for each in character_scores:
-    percentage = str(round((10 - each["total"]) / score_total["totalTotal"] * 100))
-    each["percentage"] = percentage
-personality_type = str("")
-for each in sorted(character_scores, key = lambda i: i["percentage"],reverse=True):
-    personality_type = personality_type + each["name"][0]
-print("Mazel tov, Max! Your Rose Family Personality Type is " + personality_type + "!")
+    # We only end up using the name and total keys, but mo data is mo better
+    for key, value in score_avg.items():
+        diff = abs(character_data[key] - value)
+        character_diff[key] = diff
+        character_diff['total'] += diff
+
+    character_diffs.append(character_diff)
+
+# If we break the user down into each character, what percent does each character make them up?
+# Or, what percent of the total differences does each character's diff from the user make up?
+total_diff = sum(char_diff['total'] for char_diff in character_diffs)
+user_character_percentages = {
+    char_diff['name']: char_diff['total'] / total_diff
+    for char_diff in character_diffs
+}
+
+# Print the user's results
+# Users get a personality type made up of the first letters of each
+# character's name, ordered by similarity
+personality_type = ''.join(
+    char_diff['name'][0]
+    for char_diff in sorted(character_diffs, key=lambda i: i["total"], reverse=True)
+)
+print(f"Mazel tov, Max! Your Rose Family Personality Type is {personality_type} !")
 print("You are:")
-for each in sorted(character_scores, key = lambda i: i["percentage"],reverse=True):
-    print(each["percentage"] + '% ' + each["name"] + " Rose")
-
-# sometimes the percentages AND PERSONALITY TYPE are out of order! "DJAM" seems likely
-
+for name, percent in sorted(user_character_percentages.items(), key=lambda kv: kv[1], reverse=True):
+    print(f"{round(percent * 100)}% {name} Rose")
