@@ -29,7 +29,7 @@ for path in sorted(question_files):
             continue
         if 0 < choice <= len(question_data["answers"]):
             break
-    
+
     # A valid answer has been selected, log the scores
     answer_str = answers[choice-1]
     scores.append(question_data["answers"][answer_str])
@@ -88,7 +88,7 @@ personality_type = ''.join(
     char_diff['name'][0]
     for char_diff in sorted(character_diffs, key=lambda i: i["total"], reverse=True)
 )
-print(f"Mazel tov, Max! Your Rose Family Personality Type is {personality_type} !")
+print(f"Mazel tov! Your Rose Family Personality Type is {personality_type} !")
 print("You are:")
 for name, percent in sorted(user_character_percentages.items(), key=lambda kv: kv[1], reverse=True):
     print(f"{round(percent * 100)}% {name} Rose")
