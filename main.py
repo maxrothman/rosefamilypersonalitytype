@@ -1,38 +1,70 @@
 import json
 from pathlib import Path
 
-scores = []
+def prompt_user(prompt, choices, error_prompt=None):
+    """
+    Prints a set of choices, then prompts the user to pick one
 
-# Get the list of questions
-question_files = list(Path('questions/').iterdir())
-question_count = len(question_files)
+    prompt: the string to prompt the user with
+    error_prompt: an optional alternate prompt to use if the user selects an invalid choice
+    choices: a dict of {selector: text}, where the selectors are what the user types into the prompt
+        and the texts are the texts of the options
+    
+    returns: a valid choice
+    """
+    if error_prompt is None:
+        error_prompt = prompt
 
-for path in sorted(question_files):
-    # Read in the question
-    with open(path) as f:
-        question_data = json.load(f)
+    for selector, text in choices.items():
+        print(f"{selector}. {text}")
 
-    # Ask the user the question
-    print(question_data["question"])
-    answers = list(question_data["answers"].keys())
-    for i, answer in enumerate(answers, start=1):
-        print(f"{i}. {answer}")
-
-    prompt = "Input answer number: "
     # If the answer was invalid, loop until they give a valid one
     while True:
         choice = input(prompt)
-        prompt = "Quit fucking around, gosh. "
         try:
-            choice = int(choice)
+            if choice in choices:
+                break
+            else:
+                prompt = error_prompt
         except ValueError:
             continue
-        if 0 < choice <= len(question_data["answers"]):
-            break
+    
+    return choice
+
+
+def load_json_files(path):
+    """
+    Load all the JSON files in the specified path
+
+    path: a Path object to look for JSON files in
+    returns: dict mapping file names to the JSON-deserialized contents of the files
+    """
+    results = {}
+    for file in path.iterdir():
+        with open(file) as f:
+            results[file.name] = json.load(f)
+    return results
+
+
+scores = []
+
+# Get the list of questions
+questions = load_json_files(Path('questions'))
+characters = list(load_json_files(Path('characters')).values())
+
+for _, question_data in sorted(questions.items(), key=lambda kv: kv[0]):
+    # Ask the user the question
+    answer2score = question_data["answers"]
+    choice2answer = dict([(str(k), v) for k, v in enumerate(answer2score.keys(), start=1)])
+    print(question_data["question"])
+    choice = prompt_user(
+        prompt="Input answer number: ",
+        choices=choice2answer,
+        error_prompt="Quit fucking around, gosh. ",
+    )
 
     # A valid answer has been selected, log the scores
-    answer_str = answers[choice-1]
-    scores.append(question_data["answers"][answer_str])
+    scores.append(answer2score[choice2answer[choice]])
 
 # Total the scores
 score_avg = {
@@ -50,15 +82,11 @@ for score in scores:
 
 # Average the scores
 for stat, value in score_avg.items():
-    score_avg[stat] = round(value / question_count)
+    score_avg[stat] = round(value / len(questions))
 
 # Accumulate differences between each character and the user
-character_path = Path("characters/")
 character_diffs = []
-for char_file in character_path.iterdir():
-    with open(char_file) as f:
-        character_data = json.load(f)
-
+for character_data in characters:
     character_diff = {
         'name': character_data['name'],
         'total': 0,
